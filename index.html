@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lovelight Leap · a romantic platformer</title>
+  <meta name="description" content="Lovelight Leap is a cute, love-themed 2D platformer you play in the browser. Run and jump through a rose garden, candy clouds, a starry city and a moonlit castle to reunite Amara with her sweetheart.">
+  <meta name="theme-color" content="#1a0b2e">
+  <meta name="author" content="Rishabh Aryan">
+  <meta property="og:title" content="Lovelight Leap">
+  <meta property="og:description" content="A cute, love-themed platformer made with HTML, CSS and JavaScript.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <main id="app">
+    <h1 class="sr-only">Lovelight Leap</h1>
+    <div id="stage">
+      <div id="frame">
+        <canvas id="game" width="960" height="544" role="img" aria-label="Lovelight Leap game screen"></canvas>
+        <button id="btn-pause" class="icon-btn" type="button" aria-label="Pause" title="Pause (P or Esc)" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>
+        </button>
+      </div>
+
+      <!-- Title -->
+      <section id="scr-title" class="screen" aria-labelledby="logo">
+        <div class="panel panel-title">
+          <p class="kicker">a love-themed platformer</p>
+          <h2 id="logo" class="logo"><span>Lovelight</span> <span>Leap</span></h2>
+          <p class="tagline">Run, leap and spread a little love across four dreamy worlds to reunite Amara with her sweetheart.</p>
+          <div class="btn-col">
+            <button class="btn btn-primary" id="btn-start" type="button">Start the journey</button>
+            <button class="btn" id="btn-continue" type="button" hidden>Continue</button>
+            <button class="btn" id="btn-levels" type="button">Choose a world</button>
+            <button class="btn btn-ghost" id="btn-howto" type="button">How to play</button>
+          </div>
+          <p class="meta"><span id="title-best">Best score 0</span> · <span id="title-stars">0 / 12 stars</span></p>
+        </div>
+      </section>
+
+      <!-- Story -->
+      <section id="scr-story" class="screen" aria-labelledby="story-h" hidden>
+        <div class="panel">
+          <h2 id="story-h">Once upon a sunset…</h2>
+          <p>Amara and Theo promised to meet at the Moonlit Castle when the stars came out. But a gloomy storm has made the whole kingdom grumpy, and the path is full of sulky creatures.</p>
+          <p>Leap through the <b>Rose Garden</b>, the <b>Candy-Cloud Sky</b> and the <b>Starry Night City</b>, cheer up everyone you meet with a hop or a heart arrow, and find the love letters Theo left along the way.</p>
+          <div class="btn-row"><button class="btn btn-primary" id="btn-story-go" type="button">Let’s go</button></div>
+        </div>
+      </section>
+
+      <!-- Level select -->
+      <section id="scr-levels" class="screen" aria-labelledby="levels-h" hidden>
+        <div class="panel panel-wide">
+          <h2 id="levels-h">Choose a world</h2>
+          <div id="level-grid" class="level-grid"></div>
+          <div class="btn-row"><button class="btn btn-ghost" data-back type="button">Back</button></div>
+        </div>
+      </section>
+
+      <!-- How to play -->
+      <section id="scr-howto" class="screen" aria-labelledby="howto-h" hidden>
+        <div class="panel panel-wide">
+          <h2 id="howto-h">How to play</h2>
+          <div class="howto">
+            <table class="keys">
+              <caption class="sr-only">Controls</caption>
+              <tbody>
+                <tr><th scope="row">Move</th><td><kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd></td></tr>
+                <tr><th scope="row">Jump</th><td><kbd>Space</kbd>, <kbd>Z</kbd>, <kbd>↑</kbd> or <kbd>W</kbd> (hold to jump higher)</td></tr>
+                <tr><th scope="row">Heart arrow</th><td><kbd>X</kbd> (hold <kbd>↑</kbd> to aim up)</td></tr>
+                <tr><th scope="row">Drop down</th><td><kbd>↓</kbd> + jump on a thin ledge</td></tr>
+                <tr><th scope="row">Pause</th><td><kbd>P</kbd> or <kbd>Esc</kbd></td></tr>
+                <tr><th scope="row">Sound</th><td><kbd>M</kbd> mutes everything</td></tr>
+              </tbody>
+            </table>
+            <ul class="tips">
+              <li><b>Hearts</b> add to your score. Every 100 gives an extra life.</li>
+              <li>Find the <b>3 love letters</b> hidden in each world.</li>
+              <li>Hop on grumpy creatures to <b>cheer them up</b>.</li>
+              <li><b>Cupid’s Bow</b> shoots heart arrows. The <b>Sparkle Shield</b> keeps you safe for 8 seconds.</li>
+              <li>Light a <b>heart lantern</b> to save your place.</li>
+              <li>Earn up to <b>3 stars</b>: finish, find every letter, and beat the par time.</li>
+              <li>A gamepad works too, and phones get touch buttons.</li>
+            </ul>
+          </div>
+          <div class="btn-row"><button class="btn btn-ghost" data-back type="button">Back</button></div>
+        </div>
+      </section>
+
+      <!-- Pause -->
+      <section id="scr-pause" class="screen" aria-labelledby="pause-h" hidden>
+        <div class="panel">
+          <h2 id="pause-h">Paused</h2>
+          <div class="btn-col">
+            <button class="btn btn-primary" id="btn-resume" type="button">Resume</button>
+            <button class="btn" id="btn-restart" type="button">Restart world</button>
+            <button class="btn" id="btn-pause-levels" type="button">Choose a world</button>
+            <button class="btn btn-ghost" id="btn-quit" type="button">Title screen</button>
+          </div>
+          <div class="toggles">
+            <label class="toggle"><input type="checkbox" id="opt-music" checked> <span>Music</span></label>
+            <label class="toggle"><input type="checkbox" id="opt-sound" checked> <span>Sound effects</span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Level complete -->
+      <section id="scr-complete" class="screen" aria-labelledby="complete-h" hidden>
+        <div class="panel">
+          <h2 id="complete-h">World clear!</h2>
+          <div class="stars" id="complete-stars" role="img" aria-label="0 of 3 stars"><span>★</span><span>★</span><span>★</span></div>
+          <dl class="stats" id="complete-stats"></dl>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-next" type="button">Next world</button>
+            <button class="btn" id="btn-replay" type="button">Play again</button>
+            <button class="btn btn-ghost" id="btn-complete-levels" type="button">Worlds</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Game over -->
+      <section id="scr-gameover" class="screen" aria-labelledby="over-h" hidden>
+        <div class="panel">
+          <h2 id="over-h">Heartbroken… for now</h2>
+          <p>Every love story has a stumble. Dust off and try again!</p>
+          <p class="big" id="over-score">Score 0</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-retry" type="button">Try again</button>
+            <button class="btn btn-ghost" id="btn-over-title" type="button">Title screen</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ending -->
+      <section id="scr-ending" class="screen screen-ending" aria-labelledby="end-h" hidden>
+        <div class="panel">
+          <p class="kicker">The end</p>
+          <h2 id="end-h" class="logo logo-sm">Together at last</h2>
+          <p>The King of the clouds is smiling, the stars are out, and Amara and Theo are finally together. Thank you for playing!</p>
+          <dl class="stats" id="end-stats"></dl>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-again" type="button">Play again</button>
+            <button class="btn btn-ghost" id="btn-end-levels" type="button">Worlds</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Touch controls -->
+      <div id="touch" class="touchpad" aria-hidden="true">
+        <div class="pad pad-move">
+          <button type="button" class="tbtn" data-act="left" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg></button>
+          <button type="button" class="tbtn" data-act="right" tabindex="-1"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
+        <div class="pad pad-act">
+          <button type="button" class="tbtn tbtn-shoot" data-act="shoot" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M4 20 18 6M13 6h5v5"/></svg></button>
+          <button type="button" class="tbtn tbtn-jump" data-act="jump" tabindex="-1"><svg viewBox="0 0 24 24"><path class="fill" d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <footer class="foot">
+      <span>© 2026 Rishabh Aryan</span>
+      <span aria-hidden="true">·</span>
+      <button id="btn-sound" class="link-btn" type="button" aria-pressed="false">Sound on</button>
+      <span aria-hidden="true">·</span>
+      <a href="https://github.com/Rishabh-bgp/lovelight-leap">Source on GitHub</a>
+    </footer>
+  </main>
+  <div id="live" class="sr-only" aria-live="polite"></div>
+  <script src="assets/js/engine.js"></script>
+  <script src="assets/js/levels.js"></script>
+  <script src="assets/js/art.js"></script>
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
