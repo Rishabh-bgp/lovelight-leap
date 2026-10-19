@@ -206,7 +206,7 @@ kbd {
 
 /* ---------- touch controls ---------- */
 .touchpad { display: none; }
-body.touch .touchpad {
+.touch .touchpad {
   display: flex; justify-content: space-between; align-items: center;
   width: 100%; max-width: 760px; padding: 14px 6px 4px; gap: 12px;
   user-select: none; -webkit-user-select: none;
@@ -225,30 +225,30 @@ body.touch .touchpad {
 .tbtn.on { transform: scale(0.94); background: rgba(255, 92, 154, 0.55); }
 .tbtn-jump { width: 86px; height: 86px; background: radial-gradient(circle at 35% 30%, #ff9cc4, #ff3d7f 60%, #c2185b); }
 .tbtn-shoot { background: radial-gradient(circle at 35% 30%, #ffe6a6, #e8a93c 70%); color: #5a2d00; }
-body.touch { --reserve: 170px; }
-body.touch.no-bow .tbtn-shoot { opacity: 0.45; }
+.touch { --reserve: 170px; }
+.touch body.no-bow .tbtn-shoot { opacity: 0.45; }
 
 /* phones held sideways: put the buttons on top of the game */
 @media (orientation: landscape) and (max-height: 560px) {
-  body.touch { --reserve: 30px; }
-  body.touch .touchpad { position: absolute; inset: auto 0 34px 0; max-width: none; padding: 0 18px; pointer-events: none; z-index: 3; }
-  body.touch .tbtn { pointer-events: auto; opacity: 0.75; width: 62px; height: 62px; }
-  body.touch .tbtn-jump { width: 72px; height: 72px; }
+  .touch { --reserve: 30px; }
+  .touch .touchpad { position: absolute; inset: auto 0 34px 0; max-width: none; padding: 0 18px; pointer-events: none; z-index: 3; }
+  .touch .tbtn { pointer-events: auto; opacity: 0.75; width: 62px; height: 62px; }
+  .touch .tbtn-jump { width: 72px; height: 72px; }
   .foot { font-size: 0.75rem; }
 }
 
 /* phones held upright: game on top, big buttons right under it */
 @media (orientation: portrait) {
-  body.touch #stage { justify-content: flex-start; padding: max(14px, env(safe-area-inset-top)) 6px 0; }
-  body.touch #frame { width: 100%; }
-  body.touch .touchpad { padding-top: 26px; }
-  body.touch .tbtn { width: 80px; height: 80px; }
-  body.touch .tbtn-jump { width: 96px; height: 96px; }
-  body.touch .touchpad::after {
+  .touch #stage { justify-content: flex-start; padding: max(14px, env(safe-area-inset-top)) 6px 0; }
+  .touch #frame { width: 100%; }
+  .touch .touchpad { padding-top: 26px; }
+  .touch .tbtn { width: 80px; height: 80px; }
+  .touch .tbtn-jump { width: 96px; height: 96px; }
+  .touch .touchpad::after {
     content: "Tip: turn your phone sideways for a bigger view";
     position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 0.8rem; color: var(--muted); opacity: 0.8;
   }
-  body.touch #stage { position: relative; }
+  .touch #stage { position: relative; }
 }
 
 @media (max-width: 720px) {

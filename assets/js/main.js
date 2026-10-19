@@ -92,9 +92,9 @@
     b.addEventListener('lostpointercapture', off);
     b.addEventListener('contextmenu', (e) => e.preventDefault());
   });
-  function enableTouch() { document.body.classList.add('touch'); resize(); }
+  function enableTouch() { document.documentElement.classList.add('touch'); resize(); }
   if (window.matchMedia('(pointer: coarse)').matches || /[?&]touch=1/.test(location.search)) enableTouch();
-  window.addEventListener('touchstart', () => { if (!document.body.classList.contains('touch')) enableTouch(); }, { passive: true, once: true });
+  window.addEventListener('touchstart', () => { if (!document.documentElement.classList.contains('touch')) enableTouch(); }, { passive: true, once: true });
 
   function pollPad() {
     const out = {};
